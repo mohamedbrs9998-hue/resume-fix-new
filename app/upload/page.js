@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 export default function UploadPage() {
   return (
-    <Suspense fallback={<div style={{padding:20}}>Loading...</div>}>
+    <Suspense fallback={<div style={{ padding: 20 }}>Loading...</div>}>
       <UploadClient />
     </Suspense>
   );
