@@ -1,0 +1,26 @@
+import { NextResponse } from 'next/server';
+import crypto from 'crypto';
+import { createOrder, uploadOriginalResume, updateOrder } from '@/lib/orders';
+import { getPlan } from '@/lib/pricing';
+import { getStripe } from '@/lib/stripe';
+import { extractTextFromBuffer } from '@/lib/text-extract';
+import { orderFormSchema } from '@/lib/validation';
+import { inspectUploadedResume } from '@/lib/file-security';
+import { captureAppError } from '@/lib/error-tracking';
+import { enqueueO
+export const runtime = 'nodejs';
+
+export async function POST(request) {
+  try {
+    const formData = await request.formData();
+    const payload = {
+      fullName: formData.get('fullName')?.toString() || '',
+      email: formData.get('email')?.toString() || '',
+      targetRole: formData.get('targetRole')?.toString() || '',
+      targetCountry: formData.get('targetCountry')?.toString() || '',
+      plan: formData.get('plan')?.toString() || '',
+      jobDescription: formData.get('jobDescription')?.toString() || '',
+    };
+    const parsed = orderFormSchema.parse(payload);
+    const resume = formData.get('resume');
+    const inspected = awai

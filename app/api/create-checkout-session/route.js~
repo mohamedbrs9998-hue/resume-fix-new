@@ -1,0 +1,77 @@
+cd ~/Desktop/resumefix-ai-hardened-secure-build-1
+
+mkdir -p app/api/create-checkout-session
+mkdir -p app/success
+
+cat > app/api/create-checkout-session/route.js <<'EOF'
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
+
+const plans = {
+  basic: { name: "Basic", priceAed: 39, description: "CV rewrite" },
+  pro: { name: "Pro", priceAed: 79, description: "CV + cover letter" },
+  premium: { name: "Premium", priceAed: 149, description: "Full package" },
+};
+
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    const planKey = String(body.package || "basic").toLowerCase();
+    const plan = plans[planKey] || plans.basic;
+
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const successUrl = appUrl + "/success?paid=1";
+    const cancelUrl = appUrl + "/upload?canceled=1";
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: "aed",
+            unit_amount: Math.round(plan.priceAed * 100),
+            product_data: {
+              name: "ResumeFix AI - " + plan.name,
+              description: plan.description,
+            },
+          },
+        },
+      ],
+      success_url: successUrl,
+      cancel_url: cancelUrl,
+      customer_email: body.email || undefined,
+    });
+
+    return NextResponse.json({ checkoutUrl: session.url });
+  } catch (error) {
+    console.error("CHECKOUT ERROR:", error);
+    return NextResponse.json(
+      { error: error && error.message ? error.message : "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+EOF
+
+cat > app/success/page.js <<'EOF'
+export default function Page() {
+  return (
+    <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#0b1020", color: "white", padding: "24px" }}>
+      <div style={{ maxWidth: "720px", width: "100%", background: "#121933", borderRadius: "16px", padding: "32px" }}>
+        <h1 style={{ fontSize: "32px", marginBottom: "12px" }}>Order received successfully</h1>
+        <p style={{ fontSize: "18px", lineHeight: 1.6 }}>Your payment was completed successfully.</p>
+        <a href="/upload" style={{ display: "inline-block", marginTop: "20px", background: "#5bbcff", color: "#07111f", padding: "12px 18px", borderRadius: "12px", textDecoration: "none", fontWeight: "700" }}>
+          Back to upload
+        </a>
+      </div>
+    </main>
+  );
+}
+EOF
+
+rm -rf .next
+npm run dev
