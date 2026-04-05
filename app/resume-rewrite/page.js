@@ -90,20 +90,41 @@ export default function ResumeRewritePage() {
         <div style={{ marginTop: 20, color: "#fca5a5" }}>{error}</div>
       ) : null}
 
-      {result ? (
-        <pre
-          style={{
-            whiteSpace: "pre-wrap",
-            marginTop: 24,
-            padding: 16,
-            borderRadius: 12,
-            background: "#0f172a",
-            border: "1px solid #334155",
-          }}
-        >
-          {result}
-        </pre>
-      ) : null}
-    </main>
-  );
-}
+{result ? (
+  <div
+    style={{
+      marginTop: 24,
+      padding: 16,
+      borderRadius: 12,
+      background: "#0f172a",
+      border: "1px solid #334155",
+    }}
+  >
+    <div
+      style={{
+        whiteSpace: "pre-wrap",
+        marginBottom: 16,
+        color: "#e5e7eb",
+      }}
+    >
+      {String(result).slice(0, 300)}...
+    </div>
+
+    <a
+      href="https://payhip.com/order?link=J7W4G"
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        display: "inline-block",
+        padding: "12px 18px",
+        borderRadius: 10,
+        textDecoration: "none",
+        background: "#60a5fa",
+        color: "#111827",
+        fontWeight: 700,
+      }}
+    >
+      Unlock Full Rewrite – $29
+    </a>
+  </div>
+) : null}
