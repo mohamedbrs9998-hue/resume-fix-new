@@ -34,7 +34,7 @@ export default function ResumeRewritePage() {
     <main style={{ maxWidth: 900, margin: "0 auto", padding: 24, color: "#fff" }}>
       <h1 style={{ fontSize: 42, marginBottom: 12 }}>AI CV Rewrite</h1>
       <p style={{ marginBottom: 24, opacity: 0.9 }}>
-        Paste your CV text below and test the AI rewrite flow.
+       Paste your CV and get a stronger ATS-friendly rewrite in seconds
       </p>
 
       <label style={{ display: "block", marginBottom: 8 }}>Target role</label>
