@@ -18,7 +18,7 @@ export default function HomePage() {
             ATS report, cover letter, and LinkedIn summary.
           </p>
           <div className="actions">
-            <Link href="/upload" className="btn btn-primary">Start an order</Link>
+            <Link href="/upload" className="btn btn-primary">Start My CV Rewrite</Link>
             <Link href="/pricing" className="btn btn-secondary">See pricing</Link>
           </div>
         </div>
