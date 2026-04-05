@@ -80,23 +80,23 @@ export default function UploadPage() {
 
       <p style={{ marginBottom: "20px" }}>Pro</p>
 
-      <button
-        type="button"
-        onClick={openCheckout}
-        disabled={!ready}
-        style={{
-          padding: "12px 18px",
-          borderRadius: "10px",
-          border: "none",
-          background: "#ffffff",
-          color: "#111827",
-          fontWeight: "700",
-          cursor: ready ? "pointer" : "not-allowed",
-          opacity: ready ? 1 : 0.6,
-        }}
-      >
-        {ready ? "Continue to payment" : "Loading payment..."}
-      </button>
-    </main>
+<a
+  href="https://payhip.com/order?link=J7W4G"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: "inline-block",
+    padding: "12px 18px",
+    borderRadius: "10px",
+    border: "none",
+    background: "#ffffff",
+    color: "#111827",
+    fontWeight: "700",
+    textDecoration: "none",
+    cursor: "pointer",
+  }}
+>
+  Continue to payment
+</a>    </main>
   );
 }
