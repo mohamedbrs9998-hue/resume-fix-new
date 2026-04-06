@@ -6,13 +6,13 @@ export default function ResumeRewritePage() {
   const [cvText, setCvText] = useState("");
   const [targetRole, setTargetRole] = useState("");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState("");
   const [error, setError] = useState("");
 
   async function handleGenerate() {
     setLoading(true);
     setError("");
-    setResult(null);
+    setResult("");
 
     try {
       const res = await fetch("/api/test-openai");
@@ -34,7 +34,7 @@ export default function ResumeRewritePage() {
     <main style={{ maxWidth: 900, margin: "0 auto", padding: 24, color: "#fff" }}>
       <h1 style={{ fontSize: 42, marginBottom: 12 }}>AI CV Rewrite</h1>
       <p style={{ marginBottom: 24, opacity: 0.9 }}>
-       Paste your CV and get a stronger ATS-friendly rewrite in seconds
+        Paste your CV and get a stronger ATS-friendly rewrite in seconds.
       </p>
 
       <label style={{ display: "block", marginBottom: 8 }}>Target role</label>
@@ -70,61 +70,60 @@ export default function ResumeRewritePage() {
         }}
       />
 
-      <button
-        onClick={handleGenerate}
-        disabled={loading}
-        style={{
-          padding: "12px 18px",
-          borderRadius: 10,
-          border: "none",
-          background: "#60a5fa",
-          color: "#111827",
-          fontWeight: 700,
-          cursor: "pointer",
-        }}
-      >
-        {loading ? "Generating..." : "Generate My CV Rewrite"}
-      </button>
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 24 }}>
+        <button
+          onClick={handleGenerate}
+          disabled={loading}
+          style={{
+            padding: "12px 18px",
+            borderRadius: 10,
+            border: "none",
+            background: "#60a5fa",
+            color: "#111827",
+            fontWeight: 700,
+            cursor: "pointer",
+          }}
+        >
+          {loading ? "Generating..." : "Generate My CV Rewrite"}
+        </button>
+
+        <a
+          href="https://payhip.com/order?link=J7W4G"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: "inline-block",
+            padding: "12px 18px",
+            borderRadius: 10,
+            textDecoration: "none",
+            background: "#22c55e",
+            color: "#081018",
+            fontWeight: 700,
+          }}
+        >
+          Unlock Full Rewrite – $29
+        </a>
+      </div>
 
       {error ? (
         <div style={{ marginTop: 20, color: "#fca5a5" }}>{error}</div>
       ) : null}
 
-{result ? (
-  <div
-    style={{
-      marginTop: 24,
-      padding: 16,
-      borderRadius: 12,
-      background: "#0f172a",
-      border: "1px solid #334155",
-    }}
-  >
-    <div
-      style={{
-        whiteSpace: "pre-wrap",
-        marginBottom: 16,
-        color: "#e5e7eb",
-      }}
-    >
-      {String(result).slice(0, 300)}...
-    </div>
-
-    <a
-      href="https://payhip.com/order?link=J7W4G"
-      target="_blank"
-      rel="noreferrer"
-      style={{
-        display: "inline-block",
-        padding: "12px 18px",
-        borderRadius: 10,
-        textDecoration: "none",
-        background: "#60a5fa",
-        color: "#111827",
-        fontWeight: 700,
-      }}
-    >
-      Unlock Full Rewrite – $29
-    </a>
-  </div>
-) : null}
+      {result ? (
+        <div
+          style={{
+            marginTop: 24,
+            padding: 16,
+            borderRadius: 12,
+            background: "#0f172a",
+            border: "1px solid #334155",
+            whiteSpace: "pre-wrap",
+            color: "#e5e7eb",
+          }}
+        >
+          {String(result).slice(0, 300)}...
+        </div>
+      ) : null}
+    </main>
+  );
+}
