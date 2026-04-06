@@ -32,21 +32,43 @@ export default function ResumeRewritePage() {
     setResult(null);
 
     try {
-      const res = await fetch("/api/generate-full-cv", {
+      const saveRes = await fetch("/api/save-order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          fullName: form.fullName,
+          email: form.email,
+          targetRole: form.targetRole,
+          targetCountry: form.location,
+          jobDescription: form.summaryNotes,
+          resumeText: `
+Work Experience:
+${form.workExperience}
+
+Education:
+${form.education}
+
+Skills:
+${form.skills}
+
+Certifications:
+${form.certifications}
+
+Languages:
+${form.languages}
+          `,
+        }),
       });
 
-      const data = await res.json();
+      const saveData = await saveRes.json();
 
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || "Failed to generate CV");
+      if (!saveRes.ok || !saveData.ok) {
+        throw new Error(saveData.error || "Failed to save order");
       }
 
-      setResult(data.result);
+      window.location.href = "https://payhip.com/order?link=J7W4G";
     } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {
@@ -164,7 +186,7 @@ MRCPCH theory passed / MRCPCH completed`}
             disabled={loading}
             style={styles.button}
           >
-            {loading ? "Generating..." : "Generate Full CV"}
+            {loading ? "Saving..." : "Continue to Payment"}
           </button>
         </div>
 
