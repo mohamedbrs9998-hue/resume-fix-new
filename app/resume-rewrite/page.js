@@ -81,7 +81,7 @@ ${form.languages}
       <div style={styles.container}>
         <h1 style={styles.title}>Generate Full CV</h1>
         <p style={styles.subtitle}>
-          Fill in the details below and generate a complete professional CV.
+          Fill in the details below and continue to payment.
         </p>
 
         <div style={styles.grid}>
@@ -135,14 +135,7 @@ ${form.languages}
           label="Work experience"
           value={form.workExperience}
           onChange={(v) => updateField("workExperience", v)}
-          placeholder={`Example:
-GP in Pediatrics – NMC Royal Hospital Abu Dhabi – 2021 to present
-- Pediatric emergency and ward care
-- Family counseling
-- Clinical documentation
-
-Previous GP experience in Sudan – 2 years
-- NICU and pediatric cases under supervision`}
+          placeholder="Write your work experience here..."
           rows={9}
         />
 
@@ -150,9 +143,7 @@ Previous GP experience in Sudan – 2 years
           label="Education"
           value={form.education}
           onChange={(v) => updateField("education", v)}
-          placeholder={`Example:
-MBBS – University in Sudan
-MRCPCH theory passed / MRCPCH completed`}
+          placeholder="Write your education here..."
           rows={5}
         />
 
@@ -160,7 +151,7 @@ MRCPCH theory passed / MRCPCH completed`}
           label="Skills"
           value={form.skills}
           onChange={(v) => updateField("skills", v)}
-          placeholder="e.g. Pediatric assessment, emergency care, family counseling, documentation, teamwork"
+          placeholder="List your skills here..."
           rows={4}
         />
 
@@ -168,7 +159,7 @@ MRCPCH theory passed / MRCPCH completed`}
           label="Certifications"
           value={form.certifications}
           onChange={(v) => updateField("certifications", v)}
-          placeholder="e.g. BLS, PALS, MRCPCH, DOH License"
+          placeholder="List certifications here..."
           rows={4}
         />
 
@@ -191,42 +182,6 @@ MRCPCH theory passed / MRCPCH completed`}
         </div>
 
         {error ? <div style={styles.error}>{error}</div> : null}
-
-        {result ? (
-          <div style={styles.resultBox}>
-            <h2 style={styles.resultTitle}>Generated CV</h2>
-
-            <section style={styles.section}>
-              <h3 style={styles.sectionTitle}>Professional Summary</h3>
-              <p style={styles.preWrap}>{result.professional_summary}</p>
-            </section>
-
-            <section style={styles.section}>
-              <h3 style={styles.sectionTitle}>Core Skills</h3>
-              <p style={styles.preWrap}>{result.core_skills}</p>
-            </section>
-
-            <section style={styles.section}>
-              <h3 style={styles.sectionTitle}>Professional Experience</h3>
-              <p style={styles.preWrap}>{result.professional_experience}</p>
-            </section>
-
-            <section style={styles.section}>
-              <h3 style={styles.sectionTitle}>Education</h3>
-              <p style={styles.preWrap}>{result.education}</p>
-            </section>
-
-            <section style={styles.section}>
-              <h3 style={styles.sectionTitle}>Certifications</h3>
-              <p style={styles.preWrap}>{result.certifications}</p>
-            </section>
-
-            <section style={styles.section}>
-              <h3 style={styles.sectionTitle}>Languages</h3>
-              <p style={styles.preWrap}>{result.languages}</p>
-            </section>
-          </div>
-        ) : null}
       </div>
     </main>
   );
@@ -334,28 +289,5 @@ const styles = {
     color: "#fca5a5",
     marginBottom: 20,
     fontWeight: 700,
-  },
-  resultBox: {
-    marginTop: 24,
-    padding: 20,
-    borderRadius: 16,
-    background: "#0f172a",
-    border: "1px solid #334155",
-  },
-  resultTitle: {
-    fontSize: 28,
-    marginBottom: 16,
-  },
-  section: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    marginBottom: 8,
-  },
-  preWrap: {
-    whiteSpace: "pre-wrap",
-    lineHeight: 1.7,
-    color: "#e2e8f0",
   },
 };
